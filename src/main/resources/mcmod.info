@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "${modid}",
+    "name": "Base",
+    "description": "Base for 1.8.9 Kotlin mods.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "@desiyn"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
