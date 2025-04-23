@@ -26,11 +26,13 @@ class Main {
             "Base"
         )
         ClientRegistry.registerKeyBinding(openGuiKey)
-
         MinecraftForge.EVENT_BUS.register(this)
+    }
 
+    @Mod.EventHandler
+    fun init(event: FMLInitializationEvent) {
         try {
-            println("Pre-initializing font shaders...")
+            println("Initializing font shaders...")
             FontRenderer.initShaders()
             if (FontRenderer.areShadersInitialized()) {
                 println("Font shaders initialized successfully in preInit")
@@ -41,11 +43,6 @@ class Main {
             e.printStackTrace()
             println("ERROR: Exception initializing font shaders: ${e.message}")
         }
-    }
-
-    @Mod.EventHandler
-    fun init(event: FMLInitializationEvent) {
-        FontRenderer.initShaders()
     }
 
     @SubscribeEvent

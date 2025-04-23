@@ -85,7 +85,7 @@ dependencies {
     mappings("de.oceanlabs.mcp:mcp_stable:22-1.8.9")
     forge("net.minecraftforge:forge:1.8.9-11.15.1.2318-1.8.9")
 
-    shadowImpl("com.google.code.gson:gson:2.8.6")
+    shadowImpl("com.google.code.gson:gson:2.8.9")
     shadowImpl(kotlin("stdlib-jdk8"))
 
     // If you don't want mixins, remove these lines
@@ -156,6 +156,7 @@ tasks.shadowJar {
 
     // If you want to include other dependencies and shadow them, you can relocate them in here
     fun relocate(name: String) = relocate(name, "$baseGroup.deps.$name")
+    relocate("com.google.gson")
 }
 
 tasks.assemble.get().dependsOn(tasks.remapJar)

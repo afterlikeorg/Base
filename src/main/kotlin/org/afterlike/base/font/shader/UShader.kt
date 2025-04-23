@@ -1,6 +1,5 @@
 package org.afterlike.base.font.shader
 
-import net.minecraft.client.Minecraft
 import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL20
 import java.io.*
@@ -150,10 +149,8 @@ class UShader(
          * Try to read shader source using multiple methods to ensure resource is found
          */
         private fun tryReadShaderResource(resourcePath: String): String? {
-            // Try different ways to load the resource
-            var inputStream: InputStream? = null
+            val inputStream: InputStream?
 
-            // Method 1: UShader class loader
             try {
                 inputStream = UShader::class.java.getResourceAsStream(resourcePath)
                 if (inputStream != null) {
@@ -162,40 +159,6 @@ class UShader(
                 }
             } catch (e: Exception) {
                 println("Failed to load shader with UShader class loader: ${e.message}")
-            }
-
-            // Method 2: Minecraft class loader
-            try {
-                inputStream = Minecraft::class.java.getResourceAsStream(resourcePath)
-                if (inputStream != null) {
-                    println("Found shader with Minecraft class loader: $resourcePath")
-                    return readFromStream(inputStream)
-                }
-            } catch (e: Exception) {
-                println("Failed to load shader with Minecraft class loader: ${e.message}")
-            }
-
-            // Method 3: Context class loader
-            try {
-                inputStream = Thread.currentThread().contextClassLoader.getResourceAsStream(resourcePath.substring(1))
-                if (inputStream != null) {
-                    println("Found shader with thread context class loader: $resourcePath")
-                    return readFromStream(inputStream)
-                }
-            } catch (e: Exception) {
-                println("Failed to load shader with context class loader: ${e.message}")
-            }
-
-            // Method 4: Try from file system (development environment)
-            try {
-                val file = File("./run/shaders/${resourcePath.substring(9)}")
-                if (file.exists()) {
-                    inputStream = FileInputStream(file)
-                    println("Found shader in file system: ${file.absolutePath}")
-                    return readFromStream(inputStream)
-                }
-            } catch (e: Exception) {
-                println("Failed to load shader from file system: ${e.message}")
             }
 
             println("ERROR: Could not find shader at $resourcePath using any method")
